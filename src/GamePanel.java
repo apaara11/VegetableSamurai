@@ -24,29 +24,27 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font titleFont;
 	Font bodyFont;
 
-	Rocketship rocketship;
+	Samurai samurai;
 
 	ObjectManager objectManager;
 
-	public static BufferedImage alienImg;
-	public static BufferedImage rocketImg;
-	public static BufferedImage bulletImg;
-	public static BufferedImage spaceImg;
+	public static BufferedImage broccoliImg;
+	public static BufferedImage samuraiImg;
+	public static BufferedImage forestImg;
 
 	////////////////////////////////// constructor
 	GamePanel() {
 		timer = new Timer(1000 / 60, this);
 		titleFont = new Font("Arial", Font.PLAIN, 48);
 		bodyFont = new Font("Arial", Font.PLAIN, 32);
-		rocketship = new Rocketship(250, 700, 50, 50);
-		objectManager = new ObjectManager(rocketship);
+		samurai = new Samurai(250, 700, 50, 50);
+		objectManager = new ObjectManager(samurai);
 
 		try {
 
-			alienImg = ImageIO.read(this.getClass().getResourceAsStream("alien.png"));
-			rocketImg = ImageIO.read(this.getClass().getResourceAsStream("rocket.png"));
-			bulletImg = ImageIO.read(this.getClass().getResourceAsStream("bullet.png"));
-			spaceImg = ImageIO.read(this.getClass().getResourceAsStream("space.png"));
+			broccoliImg = ImageIO.read(this.getClass().getResourceAsStream("broccoli.png"));
+			samuraiImg = ImageIO.read(this.getClass().getResourceAsStream("Samurai.png"));
+			forestImg = ImageIO.read(this.getClass().getResourceAsStream("Forest.jpg"));
 		} catch (IOException e) {
 
 			// TODO Auto-generated catch block
@@ -66,7 +64,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		objectManager.checkCollision();
 		objectManager.purgeObjects();
 
-		if (rocketship.isAlive == false) {
+		if (samurai.isAlive == false) {
 			currentState = END_STATE;
 		}
 
@@ -103,13 +101,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void drawGameState(Graphics g) {
-		g.drawImage(GamePanel.spaceImg, WIDTH, HEIGHT, null);
+		g.drawImage(GamePanel.forestImg, WIDTH, HEIGHT, null);
 
 		objectManager.draw(g);
 	}
 
 	public void drawEndState(Graphics g) {
-		g.setColor(Color.RED);
+		g.setColor(Color.BLUE);
 		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
 
 		g.setColor(Color.BLACK);
@@ -120,7 +118,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setFont(bodyFont);
 		g.drawString("Press ENTER to restart", 65, 305);
 
-		g.drawString("You killed " + objectManager.getScore() + " enemies", 105, 355);
+		g.drawString("You sliced " + objectManager.getScore() + " veggies ", 105, 355);
 
 	}
 
@@ -144,7 +142,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		if (currentState == MENU_STATE) {
 			drawMenuState(g);
-			objectManager = new ObjectManager(rocketship);
+			objectManager = new ObjectManager(samurai);
 		} else if (currentState == GAME_STATE) {
 			drawGameState(g);
 		} else if (currentState == END_STATE) {
@@ -184,17 +182,17 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		
 
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-			rocketship.x -= rocketship.speed;
+			samurai.x -= samurai.speed;
 		}
 
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			rocketship.x += rocketship.speed;
+			samurai.x += samurai.speed;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
-			rocketship.y -= rocketship.speed;
+			samurai.y -= samurai.speed;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-			rocketship.y += rocketship.speed;
+			samurai.y += samurai.speed;
 		}
 	}
 
@@ -207,7 +205,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			if (currentState > END_STATE) {
 				currentState = MENU_STATE;
 			} else if (currentState == END_STATE) {
-				rocketship = new Rocketship(250, 700, 50, 50);
+				samurai = new Samurai(250, 700, 50, 50);
 				
 			}
 		}

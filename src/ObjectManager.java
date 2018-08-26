@@ -3,16 +3,16 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class ObjectManager {
-	Rocketship rocketship;
+	Samurai samurai;
 	long enemyTimer = 0;
 	int enemySpawnTime = 1000;
 	int score = 0;
 
 	
-	ArrayList<Aliens> aliens = new ArrayList<Aliens>();
+	ArrayList<Veggies> veggies = new ArrayList<Veggies>();
 
-	ObjectManager(Rocketship object) {
-		rocketship = object;
+	ObjectManager(Samurai object) {
+		samurai = object;
 
 	}
 	
@@ -22,57 +22,60 @@ public class ObjectManager {
 	}
 
 	public void update() {
-		rocketship.update();
-		
-		for (int i = 0; i < aliens.size(); i++) {
-			aliens.get(i).update();
+		samurai.update();
+		//System.out.println(veggies.size());
+		for (int i = 0; i < veggies.size(); i++) {
+			veggies.get(i).update();
+			System.out.println("update veggies");
 		}
 	}
 
 	public void draw(Graphics g) {
-		rocketship.draw(g);
-		
-		for (int i = 0; i < aliens.size(); i++) {
-			aliens.get(i).draw(g);
+		samurai.draw(g);
+		System.out.println("blah");
+		for (int i = 0; i < veggies.size(); i++) {
+			veggies.get(i).draw(g);
 		}
 	}
 
 	
 	
 
-	public void addAliens(Aliens object) {
-		aliens.add(object);
+	public void addVeggies(Veggies object) {
+		veggies.add(object);
+		System.out.println(veggies.size());
 	}
 
 	public void checkCollision() {
-		for (int j = 0; j< aliens.size(); j++) {
+		for (int j = 0; j< veggies.size(); j++) {
 			
 				//projectiles.get(i);
-				//if( aliens.get(j).collisionBox.intersects(projectiles.get(i).collisionBox)) {
-					aliens.get(j).isAlive = false;
+				if( veggies.get(j).collisionBox.intersects(samurai.collisionBox)) {
+					veggies.get(j).isAlive = false;
 					//projectiles.get(i).isAlive = false;
 					score++;
 					//System.out.println(score);
 				}
+				
 			}
 			//if (rocketship.collisionBox.intersects(a.collisionBox)) {
 			//	rocketship.isAlive = false;
 			
-	
+	}
 		
 	public void manageEnemies() {
 		if (System.currentTimeMillis() - enemyTimer >= enemySpawnTime) {
-			addAliens(new Aliens(new Random().nextInt(LeagueInvaders.WIDTH), 0, 50, 50));
-
+			addVeggies(new Veggies(new Random().nextInt(LeagueInvaders.WIDTH), 0, 50, 50));
+System.out.println("add enemy");
 			enemyTimer = System.currentTimeMillis();
 		}
 	}
 
 	public void purgeObjects() {
 		
-		for (int i = 0; i < aliens.size(); i++) {
-			if (!aliens.get(i).isAlive) {
-				aliens.remove(i);
+		for (int i = 0; i < veggies.size(); i++) {
+			if (!veggies.get(i).isAlive) {
+				veggies.remove(i);
 			}
 		}
 	}

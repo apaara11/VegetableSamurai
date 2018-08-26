@@ -1,14 +1,14 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Aliens extends GameObject {
+public class Veggies extends GameObject {
 
 	boolean moveRight;
 	boolean moveDown;
 
 	int counter;
 
-	Aliens(int x, int y, int width, int height) {
+	Veggies(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		// TODO Auto-generated constructor stub
 	}
@@ -17,10 +17,11 @@ public class Aliens extends GameObject {
 	public void update() {
 		super.update();
 		y++;
+		System.out.println(y);
 	}
 
 	public void draw(Graphics g) {
-		g.drawImage(GamePanel.alienImg, x, y, width, height, null);
+		g.drawImage(GamePanel.broccoliImg, x, y, width, height, null);
 		
 	}
 }
