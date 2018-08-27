@@ -1,3 +1,4 @@
+import java.applet.AudioClip;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -9,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JApplet;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -31,6 +33,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public static BufferedImage broccoliImg;
 	public static BufferedImage samuraiImg;
 	public static BufferedImage forestImg;
+	
+	String victorySound = "Victory.wav";
+	
 
 	////////////////////////////////// constructor
 	GamePanel() {
@@ -53,6 +58,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 
 	}
+	
+	public void playSound(String fileName) {
+		AudioClip sound = JApplet.newAudioClip(getClass().getResource(fileName));
+		sound.play();
+	}
 
 	public void updateMenuState() {
 
@@ -60,13 +70,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void updateGameState() {
 		objectManager.update();
-		objectManager.manageEnemies();
+		objectManager.manageVeggies();
 		objectManager.checkCollision();
 		objectManager.purgeObjects();
 
 		if (samurai.isAlive == false) {
 			currentState = END_STATE;
 		}
+		
+	
 
 	}
 
@@ -76,7 +88,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void drawMenuState(Graphics g) {
 		g.setColor(Color.GREEN);
-		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
+		g.fillRect(0, 0, VegetableSamurai.WIDTH, VegetableSamurai.HEIGHT);
 
 		g.setColor(Color.DARK_GRAY);
 		g.setFont(titleFont);
@@ -108,7 +120,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void drawEndState(Graphics g) {
 		g.setColor(Color.BLUE);
-		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
+		g.fillRect(0, 0, VegetableSamurai.WIDTH, VegetableSamurai.HEIGHT);
 
 		g.setColor(Color.BLACK);
 		g.setFont(titleFont);
@@ -119,6 +131,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("Press ENTER to restart", 65, 305);
 
 		g.drawString("You sliced " + objectManager.getScore() + " veggies ", 105, 355);
+		
+		playSound(victorySound);
 
 	}
 
@@ -154,6 +168,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void startGame() {
 		timer.start();
 	}
+	
+	
 
 	// _______________________________________________//
 	@Override
@@ -168,18 +184,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		System.out.println("LeagueInvaders");
-	/*	if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			currentState++;
-			if (currentState > END_STATE) {
-				currentState = MENU_STATE;
-			} else if (currentState == END_STATE) {
-				rocketship = new Rocketship(250, 700, 50, 50);
-				//objectManager = new ObjectManager(rocketship);
-			}
-		} */
-
-		
-		
 
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			samurai.x -= samurai.speed;

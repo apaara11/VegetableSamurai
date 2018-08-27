@@ -1,13 +1,18 @@
+import java.applet.AudioClip;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
+
+import javax.swing.JApplet;
 
 public class ObjectManager {
 	Samurai samurai;
 	long enemyTimer = 0;
 	int enemySpawnTime = 1000;
 	int score = 0;
+	int missed = 0;
 
+	String sliceSound = "slice.wav";
 	
 	ArrayList<Veggies> veggies = new ArrayList<Veggies>();
 
@@ -23,11 +28,20 @@ public class ObjectManager {
 
 	public void update() {
 		samurai.update();
-		//System.out.println(veggies.size());
 		for (int i = 0; i < veggies.size(); i++) {
 			veggies.get(i).update();
 			System.out.println("update veggies");
+		
+		
+		/*if(veggies.get(i).isAlive && y>= VegetableSamurai.HEIGHT ) {
+			veggies.get(i).isAlive = false;
+			missed++;
 		}
+			
+		}*/
+		}
+			
+		
 	}
 
 	public void draw(Graphics g) {
@@ -38,7 +52,10 @@ public class ObjectManager {
 		}
 	}
 
-	
+	public void playSound(String fileName) {
+		AudioClip sound = JApplet.newAudioClip(getClass().getResource(fileName));
+		sound.play();
+	}
 	
 
 	public void addVeggies(Veggies object) {
@@ -49,23 +66,23 @@ public class ObjectManager {
 	public void checkCollision() {
 		for (int j = 0; j< veggies.size(); j++) {
 			
-				//projectiles.get(i);
+				
 				if( veggies.get(j).collisionBox.intersects(samurai.collisionBox)) {
 					veggies.get(j).isAlive = false;
-					//projectiles.get(i).isAlive = false;
+					
+					playSound(sliceSound);
+					
 					score++;
-					//System.out.println(score);
+				
 				}
 				
 			}
-			//if (rocketship.collisionBox.intersects(a.collisionBox)) {
-			//	rocketship.isAlive = false;
 			
 	}
 		
-	public void manageEnemies() {
+	public void manageVeggies() {
 		if (System.currentTimeMillis() - enemyTimer >= enemySpawnTime) {
-			addVeggies(new Veggies(new Random().nextInt(LeagueInvaders.WIDTH), 0, 50, 50));
+			addVeggies(new Veggies(new Random().nextInt(VegetableSamurai.WIDTH), 0, 50, 50));
 System.out.println("add enemy");
 			enemyTimer = System.currentTimeMillis();
 		}
@@ -76,6 +93,7 @@ System.out.println("add enemy");
 		for (int i = 0; i < veggies.size(); i++) {
 			if (!veggies.get(i).isAlive) {
 				veggies.remove(i);
+				
 			}
 		}
 	}

@@ -8,7 +8,7 @@
 		JFrame frame;
 
 		final static int WIDTH = 500;
-		final static int HEIGHT = 800;
+		final static int HEIGHT = 785;
 		GamePanel gamePanel;
 
 		VegetableSamurai() {
