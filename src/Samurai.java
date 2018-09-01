@@ -8,7 +8,7 @@ public class Samurai extends GameObject {
 	Samurai(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		// TODO Auto-generated constructor stub
-		speed = 10;
+		speed = 30;
 	}
 
 	public void update() {

@@ -36,7 +36,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	
 	String victorySound = "Victory.wav";
 	
-
+	boolean moveUp = false;
+	boolean moveDown = false;
+	boolean moveLeft = false;
+	boolean moveRight = false;
 	////////////////////////////////// constructor
 	GamePanel() {
 		timer = new Timer(1000 / 60, this);
@@ -149,6 +152,20 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			updateEndState();
 		}
 		repaint();
+		
+		if(moveUp) {
+			
+			samurai.y-=samurai.speed;
+		}
+		if(moveDown) {
+			samurai.y+=samurai.speed;
+		}
+		if(moveLeft) {
+			samurai.x-=samurai.speed;
+		}
+		if(moveRight) {
+			samurai.x+=samurai.speed;
+		}
 	}
 
 	@Override
@@ -186,17 +203,17 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		System.out.println("LeagueInvaders");
 
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-			samurai.x -= samurai.speed;
+			moveLeft = true;
 		}
 
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			samurai.x += samurai.speed;
+			moveRight = true;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
-			samurai.y -= samurai.speed;
+			moveUp = true;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-			samurai.y += samurai.speed;
+			moveDown = true;
 		}
 	}
 
@@ -212,6 +229,19 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				samurai = new Samurai(250, 700, 50, 50);
 				
 			}
+		}
+		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+			moveLeft = false;
+		}
+
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			moveRight = false;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_UP) {
+			moveUp = false;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+			moveDown = false;
 		}
 	}
 

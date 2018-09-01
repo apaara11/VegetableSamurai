@@ -14,6 +14,8 @@ public class ObjectManager {
 
 	String sliceSound = "slice.wav";
 	
+	AudioClip sound = JApplet.newAudioClip(getClass().getResource("slice.wav"));
+	
 	ArrayList<Veggies> veggies = new ArrayList<Veggies>();
 
 	ObjectManager(Samurai object) {
@@ -33,16 +35,20 @@ public class ObjectManager {
 			System.out.println("update veggies");
 		
 		
-		/*if(veggies.get(i).isAlive && y>= VegetableSamurai.HEIGHT ) {
+		if(veggies.get(i).isAlive && veggies.get(i).y>= VegetableSamurai.HEIGHT ) {
 			veggies.get(i).isAlive = false;
 			missed++;
 		}
+		
+		if(missed==5) {
 			
-		}*/
+			
+		}
+		}
 		}
 			
 		
-	}
+	
 
 	public void draw(Graphics g) {
 		samurai.draw(g);
@@ -53,8 +59,8 @@ public class ObjectManager {
 	}
 
 	public void playSound(String fileName) {
-		AudioClip sound = JApplet.newAudioClip(getClass().getResource(fileName));
-		sound.play();
+		
+		
 	}
 	
 
@@ -70,7 +76,7 @@ public class ObjectManager {
 				if( veggies.get(j).collisionBox.intersects(samurai.collisionBox)) {
 					veggies.get(j).isAlive = false;
 					
-					playSound(sliceSound);
+					sound.play();
 					
 					score++;
 				
