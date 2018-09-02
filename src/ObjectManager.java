@@ -11,6 +11,7 @@ public class ObjectManager {
 	int enemySpawnTime = 1000;
 	int score = 0;
 	int missed = 0;
+	GamePanel gamePanel;
 
 	String sliceSound = "slice.wav";
 	
@@ -18,8 +19,9 @@ public class ObjectManager {
 	
 	ArrayList<Veggies> veggies = new ArrayList<Veggies>();
 
-	ObjectManager(Samurai object) {
+	ObjectManager(Samurai object, GamePanel gamePanel) {
 		samurai = object;
+		this.gamePanel=gamePanel;
 
 	}
 	
@@ -41,7 +43,7 @@ public class ObjectManager {
 		}
 		
 		if(missed==5) {
-			
+			gamePanel.endGame();
 			
 		}
 		}

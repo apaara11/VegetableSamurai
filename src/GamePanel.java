@@ -46,7 +46,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		titleFont = new Font("Arial", Font.PLAIN, 48);
 		bodyFont = new Font("Arial", Font.PLAIN, 32);
 		samurai = new Samurai(250, 700, 50, 50);
-		objectManager = new ObjectManager(samurai);
+		objectManager = new ObjectManager(samurai, this);
 
 		try {
 
@@ -173,7 +173,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		if (currentState == MENU_STATE) {
 			drawMenuState(g);
-			objectManager = new ObjectManager(samurai);
+			objectManager = new ObjectManager(samurai, this);
 		} else if (currentState == GAME_STATE) {
 			drawGameState(g);
 		} else if (currentState == END_STATE) {
@@ -186,7 +186,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		timer.start();
 	}
 	
-	
+	public void endGame() {
+		currentState=END_STATE;
+	}
 
 	// _______________________________________________//
 	@Override
