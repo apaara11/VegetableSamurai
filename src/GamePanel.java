@@ -109,16 +109,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString(" child's worst nightmare.", 65, 500);
 		g.drawString(" VEGETABLES!", 65, 550);
 		
-		g.drawString("Move the samurai so that its",20, 650);
-		g.drawString(" sword touches the vegetables", 20, 700);
-		g.drawString("and slices them", 20, 750);
-
+		g.drawString("Move the samurai so that its",20, 600);
+		g.drawString(" sword touches the vegetables", 20, 650);
+		g.drawString("and slices them. But if you miss 5 pieces...", 20, 700);
+		g.drawString("GAME OVER", 20, 740);
 	}
 
 	public void drawGameState(Graphics g) {
 		g.drawImage(GamePanel.forestImg, WIDTH, HEIGHT, null);
 
 		objectManager.draw(g);
+		g.setColor(Color.WHITE);
+		g.drawString("You missed "+ objectManager.missed, 5, 20);
 	}
 
 	public void drawEndState(Graphics g) {
@@ -132,6 +134,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.BLACK);
 		g.setFont(bodyFont);
 		g.drawString("Press ENTER to restart", 65, 305);
+		
 
 		g.drawString("You sliced " + objectManager.getScore() + " veggies ", 105, 355);
 		

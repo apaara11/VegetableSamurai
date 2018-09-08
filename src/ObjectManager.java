@@ -47,6 +47,19 @@ public class ObjectManager {
 			
 		}
 		}
+		
+		if(samurai.x<0) {
+			samurai.x=0;
+		}
+		if(samurai.y<0) {
+			samurai.y=0;
+		}
+		if(samurai.x>VegetableSamurai.WIDTH) {
+			samurai.x= 0;
+		}
+		if(samurai.y>VegetableSamurai.HEIGHT) {
+			samurai.y=0 ;
+		}
 		}
 			
 		
@@ -92,6 +105,7 @@ public class ObjectManager {
 		if (System.currentTimeMillis() - enemyTimer >= enemySpawnTime) {
 			addVeggies(new Veggies(new Random().nextInt(VegetableSamurai.WIDTH), 0, 50, 50));
 System.out.println("add enemy");
+Veggies.veggiesSpeed++;
 			enemyTimer = System.currentTimeMillis();
 		}
 	}

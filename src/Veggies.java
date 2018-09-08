@@ -7,6 +7,8 @@ public class Veggies extends GameObject {
 	boolean moveDown;
 
 	int counter;
+	
+	static int veggiesSpeed=8;
 
 	Veggies(int x, int y, int width, int height) {
 		super(x, y, width, height);
@@ -17,6 +19,7 @@ public class Veggies extends GameObject {
 	public void update() {
 		super.update();
 		y++;
+		y= y+veggiesSpeed;
 		System.out.println(y);
 	}
 
